@@ -1,5 +1,6 @@
 import Avatar from "../../components/Avatar";
 import { TAG_META, BORDER } from "../../constants";
+import {useNavigate} from "react-router-dom";
 
 /**
  * Card representing a single project in the list.
@@ -10,8 +11,10 @@ import { TAG_META, BORDER } from "../../constants";
 export default function ProjectCard({ project, onDelete, accent }) {
   const meta = TAG_META[project.tag] || TAG_META["Active"];
 
+  const navigate = useNavigate();
+
   return (
-    <div
+    <div onClick={() => navigate(`/projects/${project.id}`)}
       className="group relative rounded-2xl border hover:border-[#2e3d30] transition-all duration-200 overflow-hidden cursor-pointer"
       style={{ background: "linear-gradient(145deg,#111820,#0d1117)", borderColor: BORDER }}
     >
@@ -41,6 +44,7 @@ export default function ProjectCard({ project, onDelete, accent }) {
             <div>
               <p className="text-sm font-medium text-slate-300">{project.author}</p>
               <p className="text-xs text-slate-600">{project.time}</p>
+              <p className="text-xs text-slate-500 truncate">Open to view details</p>
             </div>
           </div>
         </div>
@@ -48,8 +52,7 @@ export default function ProjectCard({ project, onDelete, accent }) {
         {/* Delete button — only visible on hover */}
         <button
           onClick={(e) => { e.stopPropagation(); onDelete(project.id); }}
-          className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-lg hover:bg-red-500/10 text-slate-700 hover:text-red-400 flex-shrink-0 mt-1"
-        >
+          className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-1.5 rounded-lg hover:bg-red-500/10 text-slate-700 hover:text-red-400 flex-shrink-0 mt-1"        >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7

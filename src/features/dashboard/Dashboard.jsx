@@ -5,6 +5,7 @@ import NewProjectModal from "../projects/NewProjectModal";
 import NotificationsPanel from "../notifications/NotificationsPanel";
 import { BG_MAIN } from "../../constants";
 import { initialProjects, initialNotifications } from "../../data/seedData";
+import { BrowserRouter } from "react-router-dom";
 
 /**
  * The main dashboard page shown after login.
@@ -12,16 +13,15 @@ import { initialProjects, initialNotifications } from "../../data/seedData";
  * @param {object}   user     - Logged-in user { name, email }.
  * @param {function} onLogout - Called when the user logs out.
  */
-export default function Dashboard({ user, onLogout }) {
-  const [projects, setProjects]           = useState(initialProjects);
+export default function Dashboard({ user, onLogout, projects, setProjects }) {
   const [notifications, setNotifications] = useState(initialNotifications);
   const [showModal, setShowModal]         = useState(false);
 
-  const handleAddProject = ({ title, author, initials, color, tag }) => {
+  const handleAddProject = ({ title, author, initials, color, tag, info }) => {
     const now  = new Date();
     const time = `Today at ${now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
 
-    setProjects((prev) => [{ id: Date.now(), title, author, initials, color, time, tag }, ...prev]);
+    setProjects((prev) => [{ id: Date.now(), title, author, initials, color, time, tag, info }, ...prev]);
     setNotifications((prev) => [
       { id: Date.now(), user: author, userColor: color, action: "Added a new project", time: "just now" },
       ...prev,
@@ -36,7 +36,7 @@ export default function Dashboard({ user, onLogout }) {
 
       <Navbar user={user} onNewProject={() => setShowModal(true)} onLogout={onLogout} />
 
-      <main className="max-w-6xl mx-auto px-5 pt-18 pb-8">
+      <main className="w-full mx-auto px-6 ">
         {/* Page heading */}
         <div className="mb-7">
           <h1 className="text-2xl font-bold text-slate-100">Dashboard</h1>

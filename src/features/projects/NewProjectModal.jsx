@@ -11,12 +11,13 @@ import { LIME_GRAD, BG_MAIN, BG_CARD, BG_INPUT, BORDER2, AVATAR_COLORS, TAG_META
 export default function NewProjectModal({ onClose, onAdd, authorName }) {
   const [title, setTitle] = useState("");
   const [tag, setTag]     = useState("Active");
+  const [info, setInfo] = useState("");
 
   const handleSubmit = () => {
     if (!title.trim()) return;
     const initials = authorName.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2);
     const color    = AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)];
-    onAdd({ title: title.trim(), author: authorName, initials, color, tag });
+    onAdd({ title: title.trim(), author: authorName, initials, color, tag, info: info.trim(), });
     onClose();
   };
 
@@ -59,6 +60,24 @@ export default function NewProjectModal({ onClose, onAdd, authorName }) {
               className={INPUT_CLS}
               style={{ background: BG_INPUT }}
             />
+          </div>
+
+           {/* Description */}
+          <div>
+
+            <label className="block text-xs font-medium text-slate-500 mb-1.5 uppercase tracking-wide">
+              Description
+            </label>
+
+            <textarea
+              rows={4}
+              value={info}
+              onChange={(e) => setInfo(e.target.value)}
+              placeholder="Describe your project..."
+              className={`${INPUT_CLS} resize-none`}
+              style={{ background: BG_INPUT }}
+            />
+
           </div>
 
           <div>

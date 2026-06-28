@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import LimeBtn from "../../components/LimeBtn";
 import { LIME_GRAD, BG_MAIN, BORDER, BORDER2, AVATAR_COLORS } from "../../constants";
@@ -17,13 +18,13 @@ export default function Navbar({ user, onNewProject, onLogout }) {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 border-b"
+      className=" sticky top-0 w-full z-50 border-b"
       style={{ background: "rgba(13,17,23,0.88)", backdropFilter: "blur(12px)", borderColor: BORDER }}
     >
-      <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+      <div className="w-full px-5 h-16 flex items-center justify-between">
 
         {/* ── Logo ── */}
-        <div className="flex items-center gap-2.5">
+        <Link to="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: LIME_GRAD }}>
             <svg className="w-4 h-4" style={{ color: BG_MAIN }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
@@ -33,7 +34,7 @@ export default function Navbar({ user, onNewProject, onLogout }) {
             </svg>
           </div>
           <span className="font-bold text-lg tracking-tight text-slate-100">Tasktics</span>
-        </div>
+        </Link>
 
         {/* ── Right-side actions ── */}
         <nav className="flex items-center gap-2">

@@ -7,6 +7,7 @@ export const initialProjects = [
     color: "#a3e635",
     time: "Today at 12:36 PM",
     tag: "Active",
+    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl euismod nunc.",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const initialProjects = [
     color: "#4ade80",
     time: "Today at 12:35 PM",
     tag: "Planning",
+    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl euismod nunc.",
   },
 ];
 
