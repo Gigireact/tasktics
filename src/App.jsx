@@ -44,9 +44,11 @@ export default function App() {
             ? (
               <ProjectDetails
                 projects={projects}
+                setProjects={setProjects}
               />
             )
-            : <Navigate to="/" />
+            : ( <Navigate to="/" />
+            )
         }
       />
 

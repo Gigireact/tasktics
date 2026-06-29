@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import Avatar from "../../components/Avatar";
 import { TAG_META, BORDER, BG_MAIN } from "../../constants";
 import { initialProjects } from "../../data/seedData";
 
-export default function ProjectDetails({projects}) {
+export default function ProjectDetails({projects, setProjects}) {
   const { id } = useParams();
 
   const project = projects.find(
@@ -23,7 +24,29 @@ export default function ProjectDetails({projects}) {
     );
   }
 
+  const [editing, setEditing] = useState(false);
+
+    const [title, setTitle] = useState(project.title);
+    const [info, setInfo] = useState(project.info || "");
+
   const meta = TAG_META[project.tag];
+
+  const handleSave = () => {
+
+  setProjects(prev =>
+    prev.map(p =>
+      p.id === project.id
+        ? {
+            ...p,
+            title,
+            info
+          }
+        : p
+    )
+  );
+
+  setEditing(false);
+};
 
   return (
     <div
@@ -44,56 +67,64 @@ export default function ProjectDetails({projects}) {
           style={{ background: project.color }}
         />
 
-        <div className="p-8">
-
-          {/* Status */}
-          <span
-            className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-full mb-4"
-            style={{
-              background: meta.bg,
-              color: meta.text
-            }}
-          >
-            <span
-              className="w-2 h-2 rounded-full"
-              style={{ background: meta.dot }}
-            />
-
-            {project.tag}
-          </span>
+        <div className="p-8 whitespace-pre-wrap ">
 
           {/* Title */}
-          <h1 className="text-3xl font-bold text-slate-100 mb-2">
-            {project.title}
-          </h1>
-          <p className="text-slate-700 leading-7 mb-6">
-            {project.info || "No description provided."}
-          </p>
 
-          <p className="text-slate-500 mb-6">
-            Created {project.time}
-          </p>
+          {editing ? (
+            <>
+                <input
+                value={title}
+                onChange={(e)=>setTitle(e.target.value)}
+                className="w-full rounded-xl p-3 mb-4 bg-[#161b22] text-white"
+                />
 
-          {/* Author */}
-          <div className="flex items-center gap-3 mb-8">
+                <textarea
+                value={info}
+                onChange={(e)=>setInfo(e.target.value)}
+                rows={6}
+                className="w-full rounded-xl p-3 bg-[#161b22] text-white"
+                />
 
-            <Avatar
-              initials={project.initials}
-              color={project.color}
-              size="md"
-            />
+                <button
+                    onClick={handleSave}
+                    className="block mx-auto mt-4 mb-4 px-4 py-2 rounded-xl bg-lime-400 text-black font-semibold">
+                    Save
+                </button>
 
-            <div>
-              <p className="font-semibold text-slate-100">
-                {project.author}
-              </p>
+            </>
 
-              <p className="text-sm text-slate-500">
-                Project Owner
-              </p>
-            </div>
+            ) : (
 
-          </div>
+            <>
+                <div className="flex items-start justify-between gap-4 mb-6">
+
+                    <div className="flex-1">
+                    <h1 className="text-3xl font-bold text-lime-400 mb-2">
+                        {project.title}
+                    </h1>
+
+                    <p className="text-white whitespace-pre-wrap">
+                        {project.info || "No description provided."}
+                    </p>
+                    </div>
+
+                    <button
+                    onClick={() => setEditing(true)}
+                    className="p-2 rounded-lg
+                                hover:bg-[#161b22]
+                                text-slate-400
+                                hover:text-lime-400
+                                transition"
+                    >
+                    ✏️
+                    </button>
+
+                </div>
+            </>
+
+            )}
+
 
           {/* Information */}
           <div
@@ -118,6 +149,16 @@ export default function ProjectDetails({projects}) {
 
               <span className="text-slate-200">
                 {project.author}
+              </span>
+            </div>
+
+            <div className="flex justify-between mt-0">
+              <span className="text-slate-500">
+                Created
+              </span>
+
+              <span className="text-slate-200">
+                {project.time}
               </span>
             </div>
 

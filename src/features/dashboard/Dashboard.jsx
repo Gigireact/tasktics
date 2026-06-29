@@ -32,11 +32,11 @@ export default function Dashboard({ user, onLogout, projects, setProjects }) {
   const handleClearNotifications = () => setNotifications([]);
 
   return (
-    <div className="min-h-screen font-sans" style={{ background: BG_MAIN }}>
+    <div className="min-h-screen font-sans flex flex-col" style={{ background: BG_MAIN }}>
 
       <Navbar user={user} onNewProject={() => setShowModal(true)} onLogout={onLogout} />
 
-      <main className="w-full mx-auto px-6 ">
+      <main className="flex-1 w-full mx-auto px-6 pb-8 overflow-y-auto ">
         {/* Page heading */}
         <div className="mb-7">
           <h1 className="text-2xl font-bold text-slate-100">Dashboard</h1>

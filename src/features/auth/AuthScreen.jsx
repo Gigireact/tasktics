@@ -52,7 +52,7 @@ export default function AuthScreen({ onAuth }) {
 
         {/* ── Logo ── */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3"
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-0"
                style={{ background: LIME_GRAD }}>
             <svg className="w-6 h-6" style={{ color: BG_MAIN }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}

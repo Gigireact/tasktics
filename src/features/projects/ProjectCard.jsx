@@ -38,14 +38,33 @@ export default function ProjectCard({ project, onDelete, accent }) {
             {project.title}
           </h3>
 
+
           {/* Author row */}
-          <div className="flex items-center gap-2">
-            <Avatar initials={project.initials} color={project.color} size="sm" />
-            <div>
-              <p className="text-sm font-medium text-slate-300">{project.author}</p>
-              <p className="text-xs text-slate-600">{project.time}</p>
-              <p className="text-xs text-slate-500 truncate">Open to view details</p>
+          <div className="flex items-center justify-between">
+
+            {/* Left side */}
+            <div className="flex items-center gap-2">
+              <Avatar
+                initials={project.initials}
+                color={project.color}
+                size="sm"
+              />
+              <span className="text-sm font-medium text-slate-300">
+                {project.author}
+              </span>
             </div>
+
+            {/* Right side */}
+            <div className="text-right">
+              <p className="text-xs text-slate-600">
+                {project.time}
+              </p>
+
+              <p className="text-xs text-slate-500 truncate">
+                Click to view details
+              </p>
+            </div>
+
           </div>
         </div>
 
