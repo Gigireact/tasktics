@@ -29,7 +29,6 @@ export default function ProjectDetails({projects, setProjects}) {
     const [title, setTitle] = useState(project.title);
     const [info, setInfo] = useState(project.info || "");
 
-  const meta = TAG_META[project.tag];
 
   const handleSave = () => {
 
@@ -101,28 +100,21 @@ export default function ProjectDetails({projects, setProjects}) {
 
                     <div className="flex-1">
                     <h1 className="text-3xl font-bold text-lime-400 mb-2">
-                        {project.title}
+                      {project.title}
                     </h1>
 
                     <p className="text-white whitespace-pre-wrap">
-                        {project.info || "No description provided."}
+                      {project.info || "No description provided."}
                     </p>
                     </div>
 
                     <button
                     onClick={() => setEditing(true)}
-                    className="p-2 rounded-lg
-                                hover:bg-[#161b22]
-                                text-slate-400
-                                hover:text-lime-400
-                                transition"
-                    >
+                    className="p-2 rounded-lg hover:bg-[#161b22] text-slate-400 hover:text-lime-400 transition">
                     ✏️
                     </button>
-
                 </div>
             </>
-
             )}
 
 

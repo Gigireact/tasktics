@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Avatar from "../../components/Avatar";
 import LimeBtn from "../../components/LimeBtn";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LIME_GRAD, BG_MAIN, BG_CARD, BG_INPUT, BORDER2, AVATAR_COLORS, INPUT_CLS } from "../../constants";
 
 /**
@@ -8,18 +9,40 @@ import { LIME_GRAD, BG_MAIN, BG_CARD, BG_INPUT, BORDER2, AVATAR_COLORS, INPUT_CL
  * @param {function} onAuth - Called with { name, email } once the user authenticates.
  */
 export default function AuthScreen({ onAuth }) {
-  const [mode, setMode]         = useState("login"); // "login" | "signup"
+  // const [mode, setMode]         = useState("login"); // "login" | "signup"
   const [name, setName]         = useState("");
   const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm]   = useState("");
   const [error, setError]       = useState("");
 
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const mode =
+    location.pathname === "/signup"
+      ? "signup"
+      : "login";
+
   // Clear all fields when switching tabs
+
   const switchMode = (m) => {
-    setMode(m);
-    setName(""); setEmail(""); setPassword(""); setConfirm(""); setError("");
+    navigate(m === "signup"
+      ? "/signup"
+      : "/signin"
+    );
+
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirm("");
+    setError("");
   };
+  // const switchMode = (m) => {
+  //   setMode(m);
+  //   setName(""); setEmail(""); setPassword(""); setConfirm(""); setError("");
+  // };
 
   const handleSubmit = () => {
     setError("");

@@ -12,8 +12,23 @@ export default function App() {
   return (
     <Routes>
 
+      {/* Redirect root */}
       <Route
         path="/"
+        element={<Navigate to="/signin" />}
+      />
+
+      <Route
+        path="/signin"
+        element={
+          user
+            ? <Navigate to="/dashboard" />
+            : <AuthScreen onAuth={setUser} />
+        }
+      />
+
+      <Route
+        path="/signup"
         element={
           user
             ? <Navigate to="/dashboard" />
