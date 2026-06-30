@@ -57,10 +57,7 @@ export default function App() {
         element={
           user
             ? (
-              <ProjectDetails
-                projects={projects}
-                setProjects={setProjects}
-              />
+              <ProjectDetails />
             )
             : ( <Navigate to="/" />
             )

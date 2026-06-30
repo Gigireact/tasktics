@@ -3,8 +3,16 @@ import { useState } from "react";
 import Avatar from "../../components/Avatar";
 import { TAG_META, BORDER, BG_MAIN } from "../../constants";
 import { initialProjects } from "../../data/seedData";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function ProjectDetails({projects, setProjects}) {
+export default function ProjectDetails() {
+
+  const projects = useSelector(
+    state => state.project.projects
+  );
+
+  const dispatch = useDispatch();
+
   const { id } = useParams();
 
   const project = projects.find(
@@ -32,17 +40,14 @@ export default function ProjectDetails({projects, setProjects}) {
 
   const handleSave = () => {
 
-  setProjects(prev =>
-    prev.map(p =>
-      p.id === project.id
-        ? {
-            ...p,
-            title,
-            info
-          }
-        : p
-    )
-  );
+  dispatch({
+    type: "UPDATE_PROJECT",
+    payload: {
+      id: project.id,
+      title,
+      info
+    }
+  });
 
   setEditing(false);
 };
@@ -72,48 +77,47 @@ export default function ProjectDetails({projects, setProjects}) {
 
           {editing ? (
             <>
-                <input
-                value={title}
-                onChange={(e)=>setTitle(e.target.value)}
-                className="w-full rounded-xl p-3 mb-4 bg-[#161b22] text-white"
-                />
+              <input
+              value={title}
+              onChange={(e)=>setTitle(e.target.value)}
+              className="w-full rounded-xl p-3 mb-4 bg-[#161b22] text-white"
+              />
 
-                <textarea
-                value={info}
-                onChange={(e)=>setInfo(e.target.value)}
-                rows={6}
-                className="w-full rounded-xl p-3 bg-[#161b22] text-white"
-                />
+              <textarea
+              value={info}
+              onChange={(e)=>setInfo(e.target.value)}
+              rows={6}
+              className="w-full rounded-xl p-3 bg-[#161b22] text-white"
+              />
 
-                <button
-                    onClick={handleSave}
-                    className="block mx-auto mt-4 mb-4 px-4 py-2 rounded-xl bg-lime-400 text-black font-semibold">
-                    Save
-                </button>
+              <button
+                onClick={handleSave}
+                className="block mx-auto mt-4 mb-4 px-4 py-2 rounded-xl bg-lime-400 text-black font-semibold">
+                Save
+              </button>
 
             </>
 
             ) : (
 
             <>
-                <div className="flex items-start justify-between gap-4 mb-6">
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <div className="flex-1">
+                <h1 className="text-3xl font-bold text-lime-400 mb-2">
+                  {project.title}
+                </h1>
 
-                    <div className="flex-1">
-                    <h1 className="text-3xl font-bold text-lime-400 mb-2">
-                      {project.title}
-                    </h1>
-
-                    <p className="text-white whitespace-pre-wrap">
-                      {project.info || "No description provided."}
-                    </p>
-                    </div>
-
-                    <button
-                    onClick={() => setEditing(true)}
-                    className="p-2 rounded-lg hover:bg-[#161b22] text-slate-400 hover:text-lime-400 transition">
-                    ✏️
-                    </button>
+                <p className="text-white whitespace-pre-wrap">
+                  {project.info || "No description provided."}
+                </p>
                 </div>
+
+                <button
+                onClick={() => setEditing(true)}
+                className="p-2 rounded-lg hover:bg-[#161b22] text-slate-400 hover:text-lime-400 transition">
+                ✏️
+                </button>
+              </div>
             </>
             )}
 
@@ -153,11 +157,8 @@ export default function ProjectDetails({projects, setProjects}) {
                 {project.time}
               </span>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </div>
   );
