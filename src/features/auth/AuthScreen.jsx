@@ -135,7 +135,7 @@ export default function AuthScreen({ onAuth }) {
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Mario Plummer"
+                  placeholder="John Doe"
                   className={INPUT_CLS}
                   style={{ background: BG_INPUT }}
                 />
@@ -148,7 +148,7 @@ export default function AuthScreen({ onAuth }) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="mario@planforge.io"
+                placeholder="johndoe@gmail.com"
                 className={INPUT_CLS}
                 style={{ background: BG_INPUT }}
               />
